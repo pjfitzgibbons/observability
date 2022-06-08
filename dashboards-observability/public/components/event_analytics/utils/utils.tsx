@@ -119,8 +119,8 @@ export const populateDataGrid = (
           </table>
         )}
         {explorerFields?.queriedFields &&
-        explorerFields?.queriedFields?.length > 0 &&
-        explorerFields.selectedFields?.length === 0 ? null : (
+          explorerFields?.queriedFields?.length > 0 &&
+          explorerFields.selectedFields?.length === 0 ? null : (
           <table className="osd-table table" data-test-subj="docTable">
             <thead>{header2}</thead>
             <tbody>{body2}</tbody>
@@ -284,4 +284,14 @@ export const findAutoInterval = (start: string = '', end: string = '') => {
   else if (diffSeconds <= 86400 * 366) minInterval = 'M';
 
   return [minInterval, [{ text: 'Auto', value: 'auto_' + minInterval }, ...TIME_INTERVAL_OPTIONS]];
+};
+
+// to convert hex color code to rgba format
+export const hexToRgba = (hex: string = '#3CA1C7', opacity: number = 1) => {
+  // default color PLOTLY_COLOR[0]: '#3CA1C7'
+  const defaultColor = [hex, '60', '161', '199'];
+  const rgbElements = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) || defaultColor;
+  const [, r, g, b] = rgbElements.map((color) => parseInt(color, 16));
+  const rgbaFormat = `rgba(${r},${g},${b},${opacity})`;
+  return rgbaFormat;
 };
